@@ -35,14 +35,14 @@ else:
 
 img = nib.load( input_filename )
 
+# fsl warp dimension: (i, j, k, 3)
+# itk warp dimension: (i, j, k, 1, 3)
 hdr = img.get_header()
 hdr.set_intent('vector')
-
 dat = img.get_data()
 shp = list(dat.shape)
 if len(shp) != 4:
-	print 'Input shape %s is wrong.' % dat.shape
-
+	sys.exit( str('Input shape %s is wrong.' % dat.shape) )
 shp.insert(3,1)
 dat_new = np.ndarray( shp, dtype=float )
 #dat_new[..., 0, ...] = dat.copy()
@@ -81,7 +81,6 @@ print 'Input Orientatoin : %s' % "".join(orientation)
 dat_new[..., 0, 0] = -signL * dat[..., indexL]
 dat_new[..., 0, 1] = -signP * dat[..., indexP]
 dat_new[..., 0, 2] =  signI * dat[..., indexI]
-
 
 img_new = nib.Nifti1Image( dat_new, img.get_affine(), hdr );
 nib.save( img_new, output_filename )
