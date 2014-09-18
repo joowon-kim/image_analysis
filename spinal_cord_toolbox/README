@@ -1,0 +1,6 @@
+
+sct_straighten_spinalcord.py.patch:
+  a patch for Spinal Cord Toolbox 1.0.3 to allow segmentation/centerline input not covering all slices.
+
+warpfsl2itk.py:
+  a tool to convert FSL warp file to ITK's. TEST VERSION.
